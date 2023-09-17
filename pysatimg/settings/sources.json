@@ -1,0 +1,89 @@
+{
+  "sentinel-2-l2a": {
+    "name": "sentinel-2-l2a",
+    "f_name": "Sentinel-2 L2A",
+    "url": "https://earth-search.aws.element84.com/v1",
+    "collection": "sentinel-2-l2a",
+    "bands": [
+      { 
+        "name": "coastal",
+        "f_name": "B1", 
+        "title": "Coastal aerosol (band 1)"
+      },
+      { 
+        "name": "blue",
+        "f_name": "B2", 
+        "title": "Blue (band 2)"
+      },
+      { 
+        "name": "green",
+        "f_name": "B3", 
+        "title": "Green (band 3)"
+      },
+      { 
+        "name": "red", 
+        "f_name": "B4",
+        "title": "Red (band 4)"
+      },
+      { 
+        "name": "rededge1",
+        "f_name": "B5", 
+        "title": "Red edge 1 (band 5)"
+      },
+      { 
+        "name": "rededge2",
+        "f_name": "B6", 
+        "title": "Red edge 2 (band 6)"
+      },
+      { 
+        "name": "rededge3",
+        "f_name": "B7", 
+        "title": "Red edge 3 (band 7)"
+      },
+      { 
+        "name": "nir", 
+        "f_name": "B8",
+        "title": "NIR 1 (band 8)"
+      },
+      { 
+        "name": "nir08",
+        "f_name": "B8A",
+        "title": "NIR 2 (band 8A)"
+      },
+      { 
+        "name": "nir09", 
+        "f_name": "B9",
+        "title": "NIR 3 (band 9)"
+      },
+      { 
+        "name": "swir16",
+        "f_name": "B11", 
+        "title": "SWIR 1 (band 11)"
+      },
+      { 
+        "name": "swir22", 
+        "f_name": "B12",
+        "title": "SWIR 2 (band 12)"
+      },
+      { 
+        "name": "scl",
+        "f_name": "SCL",
+        "title": "Scene classification map (SCL)",
+        "values": {
+          "0": "NO_DATA",
+          "1": "SATURATED_OR_DEFECTIVE",
+          "2": "CAST_SHADOWS",
+          "3": "CLOUD_SHADOWS",
+          "4": "VEGETATION",
+          "5": "NOT_VEGETATED",
+          "6": "WATER",
+          "7": "UNCLASSIFIED",
+          "8": "CLOUD_MEDIUM_PROBABILITY",
+          "9": "CLOUD_HIGH_PROBABILITY",
+          "10": "THIN_CIRRUS",
+          "11": "SNOW or ICE"
+        }
+      }
+    ]
+  }
+}

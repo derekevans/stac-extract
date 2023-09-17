@@ -1,0 +1,19 @@
+
+jupyter_root = ~/pysatimg/notebooks
+
+# Install Jupyter Lab
+jupyter/install:
+	pip install jupyter matplotlib
+
+# Start Jupyter Lab server
+jupyter/start: jupyter/root/init
+	cd $(jupyter_root) && jupyter lab --ip 0.0.0.0
+
+# Start Jupyter Lab server for local development
+jupyter/start/dev: jupyter/root/init
+	echo "WARNING: Only launch Jupyter Lab without authentication for development on your local machine!"
+	cd $(jupyter_root) && jupyter lab --LabApp.token='' --ip 0.0.0.0
+
+# Initialize Jupyter Lab root directory
+jupyter/root/init:
+	mkdir -p $(jupyter_root)
