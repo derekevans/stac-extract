@@ -1,46 +1,33 @@
 
+from copy import deepcopy
+
 import pystac_client
 
-from pysatimg import SOURCE_SETTINGS
 from .query import Query
+from pysatimg.models import Band
 
 
 class STACQuery(Query):
 
-    def __init__(self, aoi, source_name, **kwargs):
-        super().__init__(aoi, **kwargs)
-        self.source_name = source_name
-
-        self._results = None
-        
-    def query(self):
-        self.set_results()
-        return self.build_rasters()
-
-    def set_results(self):
-        self._results = self.get_catalog().search(
-            collections=[self.get_collection()],
-            intersects=self.format_aoi(),
-            datetime=self.format_date()
+    def _set_results(self):
+        super()._set_results()
+        self._results = self._get_catalog().search(
+            collections=[self._get_collection()],
+            intersects=self._format_aoi(),
+            datetime=self._format_date()
         )
 
-    def get_collection(self):
-        return self.get_source_settings()['collection']
+    def _get_collection(self):
+        return self._source_config['collection']
 
-    def get_source_settings(self):
-        return SOURCE_SETTINGS[self.source_name]
-
-    def get_catalog(self):
-        return pystac_client.Client.open(self.get_url())
+    def _get_catalog(self):
+        return pystac_client.Client.open(self._get_url())
     
-    def get_url(self):
-        return self.get_source_settings()['url']
+    def _get_url(self):
+        return self._source_config['url']
     
-    def format_aoi(self):
+    def _format_aoi(self):
         return self.aoi.to_crs(4326).unary_union
     
-    def format_date(self):
+    def _format_date(self):
         return f"{self.start_date.isoformat()}/{self.end_date.isoformat()}"
-    
-    def build_rasters(self):
-        pass

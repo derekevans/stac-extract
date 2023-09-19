@@ -10,6 +10,7 @@ setup(
     install_requires=[
         'numpy==1.26.0',
         'geopandas==0.14.0',
+        'pyyaml',
 
         # If you get ImportError: cannot import name '_gdal_array' from 'osgeo', try to reinstall GDAL using the following:
         # pip install --no-build-isolation --no-cache-dir --force-reinstall GDAL==3.7.2 
@@ -17,5 +18,8 @@ setup(
         'GDAL==3.7.2',
         'pystac-client'
     ],
-    python_requires='>=3.8.0'
+    python_requires='>=3.8.0',
+    scripts=[
+        './scripts/pysatimg_extract.py'
+    ]
 )
