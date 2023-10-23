@@ -1,3 +1,3 @@
 
-from .band import Band
+from .asset import Asset
 from .raster import Raster

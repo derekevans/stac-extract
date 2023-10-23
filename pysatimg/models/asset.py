@@ -5,7 +5,7 @@ import tempfile
 from osgeo import gdal 
 
 
-class Band:
+class Asset:
 
     CUTLINE_LAYER_NAME = 'aoi'
 

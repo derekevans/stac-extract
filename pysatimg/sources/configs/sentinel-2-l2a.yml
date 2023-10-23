@@ -2,43 +2,33 @@ name: sentinel-2-l2a
 title: Sentinel-2 L2A
 collection: sentinel-2-l2a
 url: https://earth-search.aws.element84.com/v1
-bands:
+assets:
 - name: coastal
-  title: Coastal aerosol (band 1)
 - name: blue
-  title: Blue (band 2)
 - name: green
-  title: Green (band 3)
 - name: red
-  title: Red (band 4)
 - name: rededge1
-  title: Red edge 1 (band 5)
 - name: rededge2
-  title: Red edge 2 (band 6)
 - name: rededge3
-  title: Red edge 3 (band 7)
 - name: nir
-  title: NIR 1 (band 8)
 - name: nir08
-  title: NIR 2 (band 8A)
 - name: nir09
-  title: NIR 3 (band 9)
 - name: swir16
-  title: SWIR 1 (band 11)
 - name: swir22
-  title: SWIR 2 (band 12)
 - name: scl
-  title: Scene classification map (SCL)
-  values:
-    0: NO_DATA
-    1: SATURATED_OR_DEFECTIVE
-    2: CAST_SHADOWS
-    3: CLOUD_SHADOWS
-    4: VEGETATION
-    5: NOT_VEGETATED
-    6: WATER
-    7: UNCLASSIFIED
-    8: CLOUD_MEDIUM_PROBABILITY
-    9: CLOUD_HIGH_PROBABILITY
-    10: THIN_CIRRUS
-    11: SNOW or ICE
+  bands: 
+  - name: scl
+    description: "Scene classification map (SCL)"
+    values:
+      0: NO_DATA
+      1: SATURATED_OR_DEFECTIVE
+      2: CAST_SHADOWS
+      3: CLOUD_SHADOWS
+      4: VEGETATION
+      5: NOT_VEGETATED
+      6: WATER
+      7: UNCLASSIFIED
+      8: CLOUD_MEDIUM_PROBABILITY
+      9: CLOUD_HIGH_PROBABILITY
+      10: THIN_CIRRUS
+      11: SNOW or ICE

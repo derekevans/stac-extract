@@ -13,6 +13,21 @@ RUN apt-get install build-essential software-properties-common cmake wget tzdata
 RUN mkdir /software
 WORKDIR /software
 
+# Build and install openjpeg (driver necessary for .jp2 support)
+RUN apt-get install liblcms2-dev libtiff-dev libpng-dev libz-dev -y && \
+    wget https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.0.tar.gz && \
+    tar xvf v2.5.0.tar.gz && \
+    cd openjpeg-2.5.0 && \
+    mkdir build && \
+    cd build && \
+    cmake .. -DCMAKE_BUILD_TYPE=Release && \
+    make && \
+    make install && \
+    make clean && \
+    cd /software && \
+    rm v2.5.0.tar.gz && \
+    rm -r openjpeg-2.5.0
+
 # Build and install PROJ
 RUN apt-get install libsqlite3-dev sqlite3 libtiff-dev libcurl4-openssl-dev -y && \
     wget https://download.osgeo.org/proj/proj-9.3.0.tar.gz && \
@@ -72,5 +87,5 @@ WORKDIR /home/ubuntu
 RUN python3.11 -m venv ~/python/envs/pysatimg && \
     echo "source $HOME/python/envs/pysatimg/bin/activate" >> $HOME/.bashrc
 
-WORKDIR /home/ubuntu/pysatimg
+WORKDIR /home/ubuntu
 CMD ["/bin/bash"]
