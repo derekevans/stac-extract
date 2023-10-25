@@ -1,5 +1,5 @@
 
-jupyter_root = ~/pysatimg/notebooks
+jupyter_root = ~/pysatimg
 
 # Install Jupyter Lab
 jupyter/install:

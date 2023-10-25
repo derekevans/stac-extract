@@ -1,5 +1,6 @@
 
 import os
+import subprocess
 import tempfile
 
 from osgeo import gdal 
@@ -72,7 +73,7 @@ class Asset:
         if (len(self.paths) > 0):
             self.out_path = tempfile.mkstemp(suffix='.tif')[1]
             cmd = f'gdal_merge.py -n {self.nd_value} -a_nodata {self.nd_value} -o {self.out_path} {" ".join(self._clip_paths)}'
-            os.system(cmd)
+            subprocess.call(cmd, stdout=subprocess.DEVNULL, shell=True)
         else:
             self.out_path = self._clip_paths[0]
 
