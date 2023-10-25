@@ -56,8 +56,8 @@ make jupyter/start/dev
 Once started, you can access Jupyter Lab on http://localhost:8889/lab
 
 ## TODO:
-
-1. Add docstrings
-2. Write test
-2. Suppress GDAL output b/c it effects progress bar
-3. Add additional sources
+1. Finish script
+2. Add docstrings
+3. Write test
+4. Suppress GDAL output b/c it effects progress bar
+5. Add additional sources
