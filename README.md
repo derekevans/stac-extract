@@ -53,7 +53,7 @@ make jupyter/install
 make jupyter/start/dev
 ```
 
-Once started, you can access Jupyter Lab on http://localhost:8888/lab
+Once started, you can access Jupyter Lab on http://localhost:8889/lab
 
 ## TODO:
 
