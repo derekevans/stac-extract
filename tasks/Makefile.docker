@@ -9,7 +9,7 @@ docker/build/no_cache:
 
 # Start the Docker container
 docker/start:
-	docker run -dit --mount type=bind,source="$$(realpath ..)",target=/home/ubuntu -p 8889:8888 --name pysatimg pysatimg:latest
+	docker run -dit --mount type=bind,source="$$(realpath .)",target=/home/ubuntu/pysatimg -p 8889:8888 --name pysatimg pysatimg:latest
 
 # Attach to Docker container
 docker/attach:

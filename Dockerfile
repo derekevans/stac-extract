@@ -78,14 +78,14 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y && \
 RUN apt-get install vim -y
 
 # Create ubuntu user, switch to this user, and cd to user home directory
-RUN useradd -m -d /home/ubuntu -s /bin/bash ubuntu
+RUN useradd --create-home --shell /bin/bash ubuntu
 USER ubuntu
 ENV HOME=/home/ubuntu
-WORKDIR /home/ubuntu
+WORKDIR $HOME
 
 # Install venv
 RUN python3.11 -m venv ~/python/envs/pysatimg && \
     echo "source $HOME/python/envs/pysatimg/bin/activate" >> $HOME/.bashrc
 
-WORKDIR /home/ubuntu
+WORKDIR $HOME
 CMD ["/bin/bash"]

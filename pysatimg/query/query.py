@@ -9,7 +9,7 @@ class Query:
         self.source_name = source_name
         self.start_date = kwargs.get('start_date')
         self.end_date = kwargs.get('end_date')
-        self.bands = kwargs.get('bands')
+        self.assets = kwargs.get('assets')
 
         self._source_config = None
         self._results = None

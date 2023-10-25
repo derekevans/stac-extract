@@ -13,7 +13,7 @@ class Extractor:
         self.out_dir = out_dir
         self.start_date = kwargs.get('start_date')
         self.end_date = kwargs.get('end_date')
-        self.bands = kwargs.get('bands')
+        self.assets = kwargs.get('assets')
 
         self.rasters = None
 
@@ -48,7 +48,7 @@ class Extractor:
             aoi=self.aoi,
             start_date=self.start_date,
             end_date=self.end_date,
-            bands=self.bands
+            assets=self.assets
         )
         
     def _get_source_query_class(self):

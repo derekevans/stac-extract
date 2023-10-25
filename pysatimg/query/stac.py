@@ -4,7 +4,7 @@ from copy import deepcopy
 import pystac_client
 
 from .query import Query
-from pysatimg.models import Band
+from pysatimg.models import Asset
 
 
 class STACQuery(Query):
@@ -35,12 +35,12 @@ class STACQuery(Query):
     def _build_assets(self, items):
         configs = self._init_asset_configs()
         self._update_asset_configs(configs, items)
-        return [Asset(asset['name'], self.aoi, asset['paths'], asset) for asset in settings]
+        return [Asset(asset['name'], self.aoi, asset['paths'], asset) for asset in configs]
         
     def _init_asset_configs(self):
         configs = deepcopy(self._source_config['assets'])
         configs = self._filter_and_order_asset_configs(configs)            
-        self._init_asset_paths()
+        self._init_asset_paths(configs)
         return configs
     
     def _filter_and_order_asset_configs(self, configs):
@@ -72,7 +72,7 @@ class STACQuery(Query):
         path = f'/vsicurl/{url}'
         config['paths'].append(path)
 
-    def _update_asset_config_bands(config, item):
+    def _update_asset_config_bands(self, config, item):
         item_band_infos = item.assets[config['name']].to_dict().get('eo:bands')
         config_band_infos = config.get('bands')
 
