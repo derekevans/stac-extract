@@ -1,5 +1,6 @@
 
 from concurrent.futures import ThreadPoolExecutor
+import datetime
 
 import geopandas as gpd
 from alive_progress import alive_bar
@@ -9,33 +10,42 @@ from ..query.sentinel2 import Sentinel2L2AQuery
 
 class Extractor:
 
+    """
+    Base class to extract imagery for an area of interest.
+
+    The coordinate reference system and extent will be the same as the input area of interest. 
+    """
+
     def __init__(
             self, 
-            source_name, 
-            aoi, 
-            start_date, 
-            end_date, 
-            pixel_size, 
-            out_dir, 
-            n_threads=1, 
-            **kwargs
+            source_name: str, 
+            aoi: gpd.GeoDataFrame | gpd.GeoSeries, 
+            start_date: datetime.date, 
+            end_date: datetime.date, 
+            out_dir: str,
+            pixel_size: tuple[int | float, int | float] = (10, -10), 
+            n_threads: int = 1, 
+            assets:  list[str] | None = None
         ):
         self.source_name = source_name
         self.aoi = aoi
         self.start_date = start_date
         self.end_date = end_date
-        self.pixel_size = pixel_size
         self.out_dir = out_dir
-        self.assets = kwargs.get('assets')
+        self.pixel_size = pixel_size
         self.n_threads = n_threads
-
+        self.assets = assets
+        
         self.rasters = None
 
         self._f_aoi = None
         self._query = None
         
 
-    def extract(self):
+    def extract(self) -> None:
+
+        """Extract, transform, and write imagery for area of interest to output directory."""
+
         self._format_aoi()
         self._query_source()
         self._create_rasters()
