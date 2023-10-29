@@ -9,7 +9,17 @@ from ..query.sentinel2 import Sentinel2L2AQuery
 
 class Extractor:
 
-    def __init__(self, source_name, aoi, start_date, end_date, pixel_size, out_dir, n_threads=1, **kwargs):
+    def __init__(
+            self, 
+            source_name, 
+            aoi, 
+            start_date, 
+            end_date, 
+            pixel_size, 
+            out_dir, 
+            n_threads=1, 
+            **kwargs
+        ):
         self.source_name = source_name
         self.aoi = aoi
         self.start_date = start_date
