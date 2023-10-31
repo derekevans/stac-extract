@@ -57,8 +57,8 @@ stac_sources.py
 To install the development environment for this package, you first need to have Docker Desktop installed.  Once installed:
 
 ```sh
-git clone https://github.com/derekevans/pysatimg
-cd pysatimg
+git clone https://github.com/derekevans/stac-extract
+cd stac-extract
 make docker/build
 make docker/attach
 make install
@@ -68,7 +68,7 @@ make install
 To install Jupyter Lab and start the Jupyter server:
 
 ```sh
-cd pysatimg
+cd stac-extract
 make docker/attach
 make jupyter/install
 make jupyter/start/dev
