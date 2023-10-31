@@ -17,7 +17,7 @@ from shapely.geometry import box
 polygon = box(306040, 4431910, 306830, 4432720)
 aoi = gpd.GeoSeries(polygon, crs="EPSG:32616")
 
-# Generate multiband rasters in the AOI with blue, green, red and scl bands for each available date in the date range  
+# Generate multiband rasters in the AOI with blue, green, red and scl bands from Sentinel-2 L2A for each available date in the date range
 extractor = stacext.Extractor(
     source_name='sentinel-2-l2a', 
     aoi=aoi, 
@@ -33,7 +33,7 @@ extractor.extract()
 
 From the command line:
 ```sh
-stac_extract.py --aoi '/path/to/input/aoi.shp' --source sentinel-2-l2a --pixel_x 10 --pixel_y -10 --start_date 2023-07-04 --end_date 2023-07-07 -a 'red' -a 'green' -a 'blue' --n_threads 8 --out_dir '/path/to/output/rasters'
+stac_extract.py --aoi /path/to/input/aoi.shp --source sentinel-2-l2a --pixel_x 10 --pixel_y -10 --start_date 2023-07-04 --end_date 2023-07-07 -a red -a green -a blue --n_threads 8 --out_dir /path/to/output/rasters
 ```
 ### Sources
 
