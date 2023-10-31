@@ -1,5 +1,5 @@
 .DS_Store
-pysatimg.egg-info
+stac-extract.egg-info
 __pycache__
 notebooks
 data

@@ -2,9 +2,9 @@
 from distutils.core import setup
 
 setup(
-    name='pysatimg',
+    name='stac-extract',
     version='0.0.1',
-    packages=['pysatimg'],
+    packages=['stacext'],
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     install_requires=[
@@ -22,6 +22,7 @@ setup(
     ],
     python_requires='>=3.10.0',
     scripts=[
-        './scripts/pysatimg_extract.py'
+        './scripts/stac_extract.py',
+        './scripts/stac_sources.py'
     ]
 )

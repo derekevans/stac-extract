@@ -84,8 +84,8 @@ ENV HOME=/home/ubuntu
 WORKDIR $HOME
 
 # Install venv
-RUN python3.11 -m venv ~/python/envs/pysatimg && \
-    echo "source $HOME/python/envs/pysatimg/bin/activate" >> $HOME/.bashrc
+RUN python3.11 -m venv ~/python/envs/stacext && \
+    echo "source $HOME/python/envs/stacext/bin/activate" >> $HOME/.bashrc
 
 WORKDIR $HOME
 CMD ["/bin/bash"]

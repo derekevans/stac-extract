@@ -1,5 +1,5 @@
 
-jupyter_root = ~/pysatimg
+jupyter_root = ~/stac-extract
 
 # Install Jupyter Lab
 jupyter/install:

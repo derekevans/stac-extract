@@ -5,13 +5,14 @@ import datetime
 import geopandas as gpd
 from alive_progress import alive_bar
 
-from ..query.sentinel2 import Sentinel2L2AQuery
+from .query import Query
+from .sources import Sources
 
 
 class Extractor:
 
     """
-    Base class to extract imagery for an area of interest.
+    Extract data for an area of interest from a specified source.
 
     The coordinate reference system and extent will be the same as the input area of interest. 
     """
@@ -39,6 +40,7 @@ class Extractor:
         self.rasters = None
 
         self._f_aoi = None
+        self._sources = None
         self._query = None
         
 
@@ -63,21 +65,23 @@ class Extractor:
     # 
 
     def _query_source(self):
-        self._query = self._get_source_query_instance()
-        self.rasters = self._query.query()
-
-    def _get_source_query_instance(self):
-        query_class = self._get_source_query_class()
-        return query_class(
+        self._query = Query(
             aoi=self.aoi,
+            source_config=self._get_source_config(),
             start_date=self.start_date,
             end_date=self.end_date,
             assets=self.assets
         )
-        
-    def _get_source_query_class(self):
-        if self.source_name == 'sentinel-2-l2a':
-            return Sentinel2L2AQuery
+        self.rasters = self._query.query()
+
+    def _get_source_config(self):
+        if self._sources is None:
+            self._set_sources()
+        return self._sources.configs[self.source_name]
+    
+    def _set_sources(self):
+        self._sources = Sources()
+        self._sources.fetch()
         
     #
     # Raster creation

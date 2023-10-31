@@ -1,0 +1,13 @@
+README.md
+setup.py
+./scripts/stac_extract.py
+./scripts/stac_sources.py
+stac_extract.egg-info/PKG-INFO
+stac_extract.egg-info/SOURCES.txt
+stac_extract.egg-info/dependency_links.txt
+stac_extract.egg-info/requires.txt
+stac_extract.egg-info/top_level.txt
+stacext/__init__.py
+stacext/extractor.py
+stacext/query.py
+stacext/sources.py

@@ -4,10 +4,10 @@ import datetime
 
 import geopandas as gpd
 
-import pysatimg
+import stacext
 
 parser = argparse.ArgumentParser(
-    prog='pysatimg_extract.py',
+    prog='stac_extract.py',
     description='Extracts sateillite imagery for an area or interest from a specific source.'
 )
 
@@ -69,7 +69,7 @@ parser.add_argument('--out_dir', type=str, required=True,
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    extractor = pysatimg.Extractor(
+    extractor = stacext.Extractor(
         aoi=gpd.read_file(args.aoi),
         source_name=args.source, 
         pixel_size=(args.pixel_x, args.pixel_y),  

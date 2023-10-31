@@ -1,32 +1,32 @@
 
 # Build Docker image
 docker/build:
-	docker build -t pysatimg .
+	docker build -t stacext .
 
 # Build Docker image without using cache
 docker/build/no_cache:
-	docker build --no-cache -t pysatimg .
+	docker build --no-cache -t stacext .
 
 # Start the Docker container
 docker/start:
-	docker run -dit --mount type=bind,source="$$(realpath .)",target=/home/ubuntu/pysatimg -p 8889:8888 --name pysatimg pysatimg:latest
+	docker run -dit --mount type=bind,source="$$(realpath .)",target=/home/ubuntu/stac-extract -p 8889:8888 --name stacext stacext:latest
 
 # Attach to Docker container
 docker/attach:
-	docker exec -it pysatimg /bin/bash
+	docker exec -it stacext /bin/bash
 
 # Attach to Docker container as root user
 docker/attach/root:
-	docker exec -u root -it pysatimg /bin/bash
+	docker exec -u root -it stacext /bin/bash
 
 # Stop Docker container
 docker/stop:
-	docker stop pysatimg
+	docker stop stacext
 
 # Remove Docker container
 docker/remove: docker/stop
-	docker rm pysatimg
+	docker rm stacext
 
 # Save container changes to image
 docker/commit:
-	docker commit pysatimg
+	docker commit stacext
