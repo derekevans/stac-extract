@@ -1,6 +1,0 @@
-numpy>=1.24.0
-geopandas==0.14.0
-pyyaml
-GDAL==3.7.2
-alive_progress
-pystac-client
