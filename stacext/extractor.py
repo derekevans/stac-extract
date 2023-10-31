@@ -25,6 +25,7 @@ class Extractor:
             end_date: datetime.date, 
             out_dir: str,
             pixel_size: tuple[int | float, int | float] = (10, -10), 
+            resample_method: str = 'bilinear',
             n_threads: int = 1, 
             assets:  list[str] | None = None
         ):
@@ -34,6 +35,7 @@ class Extractor:
         self.end_date = end_date
         self.out_dir = out_dir
         self.pixel_size = pixel_size
+        self.resample_method = resample_method
         self.n_threads = n_threads
         self.assets = assets
         
@@ -93,8 +95,8 @@ class Extractor:
         else:
             with alive_bar(len(self.rasters), force_tty=True) as bar:
                 for raster in self.rasters:
-                        raster.create(self.pixel_size, self.out_dir)
-                        bar()
+                    raster.create(self.pixel_size, self.resample_method, self.out_dir)
+                    bar()
 
     def _create_rasters_in_parallel(self):
         tasks = self._get_create_raster_tasks()
@@ -103,11 +105,15 @@ class Extractor:
     def _get_create_raster_tasks(self):
         tasks = []
         for raster in self.rasters:
-            task = (raster.create, self.pixel_size, self.out_dir)
+            task = (raster.create, self.pixel_size, self.resample_method, self.out_dir)
             tasks.append(task)
         return tasks
 
     def _in_parallel(self, tasks):
+
+        # TODO: Add error handling.  This is important when requesting from S3 with /vsis3/ and 
+        # user does not have AWS_SECRET_ACCESS_KEY and AWS_NO_SIGN_REQUEST defined or ~/.aws/credentials
+        
         with alive_bar(len(tasks), force_tty=True) as bar:
             with ThreadPoolExecutor(max_workers=self.n_threads) as executor:
                 futures = [executor.submit(*task) for task in tasks]

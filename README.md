@@ -1,8 +1,7 @@
 
 # stac-extract
-A python package for extracting raster data for an area of interest from the SpatioTemporal Asset Catalogs (STAC).
 
-Note: This is a work in progress. 
+A python package for extracting raster data for an area of interest from the SpatioTemporal Asset Catalogs (STAC).
 
 ## Usage
 
@@ -17,24 +16,26 @@ from shapely.geometry import box
 polygon = box(306040, 4431910, 306830, 4432720)
 aoi = gpd.GeoSeries(polygon, crs="EPSG:32616")
 
-# Generate multiband rasters in the AOI with blue, green, red and scl bands from Sentinel-2 L2A for each available date in the date range
+# Generate multiband rasters in the AOI with red, green, and blue bands (in that order) from Sentinel-2 L2A for each available date in the date range
 extractor = stacext.Extractor(
     source_name='sentinel-2-l2a', 
     aoi=aoi, 
     pixel_size=(10, -10), 
+    resample_method='bilinear',
     out_dir='/path/to/output/rasters', 
     start_date=date(2023,7,4), 
     end_date=date(2023, 7,7), 
-    assets=['blue', 'green', 'red', 'scl'],
-    n_threads=2
+    assets=['red', 'green', 'blue'],
+    n_threads=4
 )
 extractor.extract()
 ```
 
 From the command line:
 ```sh
-stac_extract.py --aoi /path/to/input/aoi.shp --source sentinel-2-l2a --pixel_x 10 --pixel_y -10 --start_date 2023-07-04 --end_date 2023-07-07 -a red -a green -a blue --n_threads 8 --out_dir /path/to/output/rasters
+stac_extract.py --aoi /path/to/input/aoi.shp --source sentinel-2-l2a --pixel_x 10 --pixel_y -10 --resample_method bilinear --start_date 2023-07-04 --end_date 2023-07-07 -a red -a green -a blue --n_threads 4 --out_dir /path/to/output/rasters
 ```
+
 ### Sources
 
 List all available sources:

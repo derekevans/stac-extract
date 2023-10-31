@@ -2,8 +2,9 @@
 import os
 from copy import deepcopy
 import json
+import re
 
-from osgeo import gdal
+from .asset import Asset
 
 
 class Raster:
@@ -15,11 +16,13 @@ class Raster:
         self.metadata = metadata
         
         self.pixel_size = None
+        self.resample_method = None
         self.out_path = None
 
-    def create(self, pixel_size, out_dir):
+    def create(self, pixel_size, resample_method, out_dir):
         try:
             self.pixel_size = pixel_size
+            self.resample_method = resample_method
             self._create_assets()
             self._merge_assets(out_dir)
             self._write_metadata(out_dir)
@@ -28,7 +31,7 @@ class Raster:
 
     def _create_assets(self):
         for asset in self.assets:
-            asset.create(self.pixel_size)        
+            asset.create(self.pixel_size, self.resample_method)        
 
     def _merge_assets(self, out_dir):
         self.out_path = f'{out_dir}/{self._get_file_name()}'
@@ -54,3 +57,72 @@ class Raster:
     def _cleanup(self):
         for asset in self.assets:
             asset.cleanup()
+
+
+class RasterBuilder:
+
+    HTTPS_REGEX = '^https:\/\/'
+    S3_REGEX = '^s3:\/\/'
+
+    def __init__(self, source_config, aoi, assets, date, items):
+        self.source_config = source_config
+        self.aoi = aoi
+        self.date = date
+        self.assets = assets
+        self.items = items
+
+    def build(self):
+        assets = self._build_assets()
+        name = f"{self.source_config['name']}_{self.date.isoformat()}"
+        return Raster(name, self.aoi, assets, self._get_raster_metadata())
+
+    def _get_raster_metadata(self):
+        config = deepcopy(self.source_config)
+        config['date'] = self.date.isoformat()
+        del config['assets']
+        return config
+    
+    #
+    # Build Assets
+    #
+
+    def _build_assets(self):
+        configs = self._init_asset_configs()
+        self._update_asset_configs(configs)
+        return [Asset(config['name'], self.aoi, config['paths'], config) for config in configs]
+        
+    def _init_asset_configs(self):
+        configs = deepcopy(self.source_config['assets'])
+        configs = self._filter_and_order_asset_configs(configs)            
+        self._init_asset_paths(configs)
+        return configs
+    
+    def _filter_and_order_asset_configs(self, configs):
+        '''
+            Filter and order assets configs as defined in self.assets.
+        '''
+        if self.assets is not None:
+            f_assets = []
+            for asset in self.assets:
+                config = list(filter(lambda config: config['name'] == asset, configs))[0]
+                f_assets.append(config)
+            return f_assets
+        else:
+            return configs
+    
+    def _init_asset_paths(self, configs):
+        for asset in configs:
+            asset['paths'] = []
+    
+    def _update_asset_configs(self, configs):
+        for item in self.items:
+            for config in configs:
+                self._assign_asset_config_path(config, item)
+
+    def _assign_asset_config_path(self, config, item):
+        url = item.assets[config['name']].href
+        if re.match(self.HTTPS_REGEX, url):
+            path = f'/vsicurl/{url}'
+        elif re.match(self.S3_REGEX, url):
+            path = f"/vsis3/{url.replace('s3://', '')}"
+        config['paths'].append(path)

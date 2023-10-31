@@ -36,6 +36,13 @@ parser.add_argument('--pixel_y', type=float, required=False,
     '''
 )
 
+parser.add_argument('--resample_method', type=str, required=False, default='bilinear', 
+    choices=['near', 'bilinear', 'cubic', 'cubicspline', 'lanczos', 'average', 'rms', 'mode', 'max', 'min', 'med', 'q1', 'q3', 'sum'],
+    help='''
+        Method used to resample source data.
+    '''
+)
+
 parser.add_argument('--start_date', type=str, required=True,
     help='''
         The start date used to search for imagery in ISO 8601 format (i.e., 2023-09-18).

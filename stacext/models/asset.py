@@ -19,22 +19,27 @@ class Asset:
         self.out_path = None
         self.nd_value = None
         self.pixel_size = None
+        self.resample_method = None
 
         self._clip_paths = None
         self._cutline_path = None
 
-    def create(self, pixel_size):
-        self._init_create(pixel_size)
+    def create(self, pixel_size, resample_method='bilinear'):
+        self._init_create(pixel_size, resample_method)
         self._clip_paths_by_aoi()
         self._merge_clipped_paths()
 
-    def _init_create(self, pixel_size):
+    def _init_create(self, pixel_size, resample_method):
         self._set_pixel_size(pixel_size)
+        self._set_resample_method(resample_method)
         self._set_nd_value()
         self._write_cutline()
 
     def _set_pixel_size(self, pixel_size):
         self.pixel_size = pixel_size
+
+    def _set_resample_method(self, resample_method):
+        self.resample_method = resample_method
 
     def _set_nd_value(self):
         rast = gdal.Open(self.paths[0])
@@ -65,7 +70,8 @@ class Asset:
             yRes=self.pixel_size[1],
             outputBounds=self.aoi.total_bounds,
             srcNodata=self.nd_value,
-            dstNodata=self.nd_value
+            dstNodata=self.nd_value,
+            resampleAlg=self.resample_method
         )
         return out_path
 
