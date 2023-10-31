@@ -12,6 +12,9 @@ class Sources:
 
     TYPE_REGEX = 'image\/tiff|image\/jp2'
 
+    def __init__(self):
+        self.configs = None
+
     def fetch(self):
         self.configs = {}
         for url in self.CATALOG_URLS:
@@ -49,6 +52,9 @@ class Sources:
     def pprint(self):
 
         '''Format and print sources'''
+
+        if self.configs is None:
+            self.fetch()
 
         for _, source in self.configs.items():
             assets = ', '.join([asset['name'] for asset in source['assets']])
