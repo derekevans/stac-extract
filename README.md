@@ -41,9 +41,9 @@ stac_extract.py --aoi /path/to/input/aoi.shp --source sentinel-2-l2a --pixel_x 1
 List all available sources:
 
 ```python
-from stacext.sources import Sources
+import stacext
 
-sources = Sources()
+sources = stacext.Sources()
 sources.pprint()
 ```
 

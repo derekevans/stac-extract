@@ -1,6 +1,7 @@
 
 import argparse
 import datetime
+import json
 
 import geopandas as gpd
 
@@ -37,9 +38,10 @@ parser.add_argument('--pixel_y', type=float, required=False,
 )
 
 parser.add_argument('--resample_method', type=str, required=False, default='bilinear', 
-    choices=['near', 'bilinear', 'cubic', 'cubicspline', 'lanczos', 'average', 'rms', 'mode', 'max', 'min', 'med', 'q1', 'q3', 'sum'],
     help='''
-        Method used to resample source data.
+        Method used to resample source data.  To define how each asset is resampled, pass JSON where the key 
+        is the asset name and the value if the resample method. For example: "{'red': 'bilinear', 'scl': 'near'}"
+        Options include: near, bilinear, cubic, cubicspline, lanczos, average, rms, mode, max, min, med, q1, q3, sum
     '''
 )
 
@@ -73,13 +75,21 @@ parser.add_argument('--out_dir', type=str, required=True,
     '''
 )
 
+def parse_resample_method(args):
+    method_str = args.resample_method
+    if "{" in method_str:
+        return json.loads(method_str.replace("'", '"'))
+    else:
+        return method_str
+
 
 if __name__ == "__main__":
     args = parser.parse_args()
     extractor = stacext.Extractor(
         aoi=gpd.read_file(args.aoi),
         source_name=args.source, 
-        pixel_size=(args.pixel_x, args.pixel_y),  
+        pixel_size=(args.pixel_x, args.pixel_y),
+        resample_method=parse_resample_method(args),  
         start_date=datetime.date.fromisoformat(args.start_date), 
         end_date=datetime.date.fromisoformat(args.end_date), 
         assets=args.assets,

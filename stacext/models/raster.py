@@ -31,7 +31,14 @@ class Raster:
 
     def _create_assets(self):
         for asset in self.assets:
-            asset.create(self.pixel_size, self.resample_method)        
+            resample_method = self._get_resample_method(asset)
+            asset.create(self.pixel_size, resample_method)     
+
+    def _get_resample_method(self, asset):
+        if isinstance(self.resample_method, dict):
+            return self.resample_method[asset.name]
+        else:
+            return self.resample_method
 
     def _merge_assets(self, out_dir):
         self.out_path = f'{out_dir}/{self._get_file_name()}'

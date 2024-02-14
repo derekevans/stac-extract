@@ -25,7 +25,7 @@ class Extractor:
             end_date: datetime.date, 
             out_dir: str,
             pixel_size: tuple[int | float, int | float] = (10, -10), 
-            resample_method: str = 'bilinear',
+            resample_method: str | dict = 'bilinear',
             n_threads: int = 1, 
             assets:  list[str] | None = None
         ):
