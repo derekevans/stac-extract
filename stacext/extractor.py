@@ -5,8 +5,8 @@ import datetime
 import geopandas as gpd
 from alive_progress import alive_bar
 
-from .query import Query
-from .sources import Sources
+from stacext.query import Query
+from stacext.sources import Sources
 
 
 class Extractor:

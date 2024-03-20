@@ -1,2 +1,2 @@
 
-from .xarray import to_xarray
+from stacext.converters.xarray import to_xarray

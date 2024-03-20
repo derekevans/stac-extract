@@ -1,11 +1,10 @@
 
 from distutils.core import setup
-from setuptools import find_packages
 
 setup(
     name='stac-extract',
     version='0.0.1',
-    packages=find_packages(),
+    packages=['stacext'],
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     install_requires=[

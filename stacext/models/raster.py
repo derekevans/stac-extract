@@ -4,7 +4,7 @@ from copy import deepcopy
 import json
 import re
 
-from .asset import Asset
+from stacext.models import Asset
 
 
 class Raster:

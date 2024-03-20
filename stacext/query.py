@@ -5,7 +5,7 @@ import re
 
 import pystac_client
 
-from .models.raster import RasterBuilder
+from stacext.models import RasterBuilder
 
 
 class Query:
