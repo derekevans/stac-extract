@@ -1,3 +1,3 @@
 
-from stacext.models.asset import Asset
-from stacext.models.raster import Raster, RasterBuilder
+from .asset import Asset
+from .raster import Raster, RasterBuilder

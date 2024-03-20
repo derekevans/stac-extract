@@ -4,7 +4,11 @@ from distutils.core import setup
 setup(
     name='stac-extract',
     version='0.0.1',
-    packages=['stacext'],
+    packages=[
+        'stacext', 
+        'stacext.models',
+        'stacext.converters'
+    ],
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     install_requires=[
