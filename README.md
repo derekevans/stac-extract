@@ -61,7 +61,9 @@ To install the development environment for this package, you first need to have 
 git clone https://github.com/derekevans/stac-extract
 cd stac-extract
 make docker/build
+make docker/start
 make docker/attach
+cd stac-extract
 make install
 ```
 
@@ -71,6 +73,7 @@ To install Jupyter Lab and start the Jupyter server:
 ```sh
 cd stac-extract
 make docker/attach
+cd stac-extract
 make jupyter/install
 make jupyter/start/dev
 ```

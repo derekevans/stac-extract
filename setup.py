@@ -18,7 +18,9 @@ setup(
         'GDAL==3.7.2',
 
         'alive_progress',
-        'pystac-client'
+        'netCDF4==1.6.5',
+        'xarray==2024.1.1',
+        'rioxarray==0.15.1'
     ],
     python_requires='>=3.10.0',
     scripts=[
