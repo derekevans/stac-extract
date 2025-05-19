@@ -13,7 +13,7 @@ setup(
     long_description_content_type='text/markdown',
     install_requires=[
         'numpy>=1.24.0',
-        'geopandas==0.14.0',
+        'geopandas==1.0.1',
         'pyyaml',
         'pystac-client',
 
