@@ -16,11 +16,7 @@ setup(
         'geopandas==1.0.1',
         'pyyaml',
         'pystac-client',
-
-        # If you get ImportError: cannot import name '_gdal_array' from 'osgeo', try to reinstall GDAL using the following:
-        # pip install --no-build-isolation --no-cache-dir --force-reinstall GDAL==3.7.2 
-        'GDAL==3.7.2',
-
+        'GDAL==3.11.0',
         'alive_progress',
         'netCDF4==1.6.5',
         'xarray==2024.1.1',
