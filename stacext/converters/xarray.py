@@ -24,7 +24,7 @@ class XArrayConverter:
         return [self._load_dataset(metadata) for metadata in self._metadatas()]
 
     def _metadatas(self):
-        for metadata_path in glob.glob(f'{self.in_dir}/*.json'):
+        for metadata_path in sorted(glob.glob(f'{self.in_dir}/*.json')):
             with open(metadata_path) as f:
                 yield json.load(f)
 
