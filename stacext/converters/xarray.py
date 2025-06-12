@@ -30,22 +30,26 @@ class XArrayConverter:
                 yield json.load(f)
 
     def _load_dataset(self, metadata):
-        xda = rioxarray.open_rasterio(f"{self.in_dir}/{metadata['file_name']}", cache=False)
-        xds = xda.to_dataset('band')
-        xds = xds.rename(self._band_name_map(metadata))
+        ds = xr.open_dataset(
+            f"{self.in_dir}/{metadata['file_name']}", 
+            engine="rasterio", 
+            mask_and_scale=True, 
+            cache=False, 
+            band_as_variable=True
+        )
+        f_ds = ds.rename(self._band_name_map(metadata))
         date = datetime.datetime.fromisoformat(metadata['date']).date()
-        xds = xds.expand_dims({'time': [date]})
-        xds = xds.transpose('time', 'x', 'y')
-        xds = self._set_band_attrs(xds, metadata)
-        xds = self._set_dataset_attrs(xds, metadata)
-        return xds
+        f_ds = f_ds.expand_dims({'time': [date]})
+        f_ds = self._set_band_attrs(f_ds, metadata)
+        f_ds = self._set_dataset_attrs(f_ds, metadata)
+        return f_ds
 
     def _band_name_map(self, metadata):
         names = []
         for asset in metadata['assets']:
             for band in asset['bands']:
                 names.append(band['name'])
-        return {idx + 1: name for idx, name in enumerate(names)}
+        return {f"band_{idx + 1}": name for idx, name in enumerate(names)}
 
     def _set_band_attrs(self, xds, metadata):
         for asset in metadata['assets']:
