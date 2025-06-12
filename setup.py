@@ -20,7 +20,8 @@ setup(
         'alive_progress',
         'netCDF4>=1.6.5',
         'xarray>=2024.1.1',
-        'rioxarray>=0.15.1'
+        'rioxarray>=0.15.1',
+        'planetary_computer'
     ],
     python_requires='>=3.10.0',
     scripts=[

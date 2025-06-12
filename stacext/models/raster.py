@@ -1,5 +1,5 @@
 
-import os
+import subprocess as sp
 from copy import deepcopy
 import json
 import re
@@ -44,7 +44,7 @@ class Raster:
         self.out_path = f'{out_dir}/{self._get_file_name()}'
         asset_paths = [asset.out_path for asset in self.assets]
         cmd = f'gdal_merge.py -n {self.assets[0].nd_value} -a_nodata {self.assets[0].nd_value} -o \"{self.out_path}\" -separate {" ".join(asset_paths)}'
-        os.system(cmd)
+        sp.run(cmd, stdout=sp.DEVNULL, shell=True)
 
     def _get_file_name(self):
         return f'{self.name}.tif'

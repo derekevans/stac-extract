@@ -4,6 +4,7 @@ from copy import deepcopy
 import re
 
 import pystac_client
+import planetary_computer
 
 from stacext.models import RasterBuilder
 
@@ -24,20 +25,16 @@ class Query:
         return self._build_rasters()
 
     def _set_results(self):
-        self._results = self._get_catalog().search(
-            collections=[self._get_collection()],
+        url = self.source_config['url']
+        catalog = pystac_client.Client.open(
+            url=url,
+            modifier=(planetary_computer.sign_inplace if url == "https://planetarycomputer.microsoft.com/api/stac/v1" else None)
+        )
+        self._results = catalog.search(
+            collections=[self.source_config['name']],
             intersects=self._format_aoi(),
             datetime=self._format_date()
         )
-
-    def _get_collection(self):
-        return self.source_config['name']
-
-    def _get_catalog(self):
-        return pystac_client.Client.open(self._get_url())
-    
-    def _get_url(self):
-        return self.source_config['url']
     
     def _format_aoi(self):
         return self.aoi.to_crs(4326).unary_union
