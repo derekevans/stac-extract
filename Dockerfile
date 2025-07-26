@@ -57,17 +57,17 @@ RUN apt-get install bzip2 -y && \
     rm -r geos-3.12.0
 
 # Build and install GDAL
-RUN wget https://github.com/OSGeo/gdal/releases/download/v3.7.2/gdal-3.7.2.tar.gz && \
-    tar xvf gdal-3.7.2.tar.gz && \
-    cd gdal-3.7.2 && \
+RUN wget https://github.com/OSGeo/gdal/releases/download/v3.11.0/gdal-3.11.0.tar.gz && \
+    tar xvf gdal-3.11.0.tar.gz && \
+    cd gdal-3.11.0 && \
     mkdir build && \
     cd build  && \
     cmake .. -DCMAKE_BUILD_TYPE=Release && \
     cmake --build . && \
     cmake --build . --target install && \
     cd /software && \
-    rm gdal-3.7.2.tar.gz && \
-    rm -r gdal-3.7.2
+    rm gdal-3.11.0.tar.gz && \
+    rm -r gdal-3.11.0
 
 # Install python3.11
 RUN add-apt-repository ppa:deadsnakes/ppa -y && \
