@@ -12,7 +12,8 @@ def main():
     args = parse_args()
     extractor = stacext.Extractor(
         aoi=gpd.read_file(args.aoi),
-        source_name=args.source, 
+        catalog=args.catalog, 
+        collection=args.collection,
         pixel_size=(args.pixel_x, args.pixel_y),
         resample_method=parse_resample_method(args),  
         start_date=datetime.date.fromisoformat(args.start_date), 
