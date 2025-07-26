@@ -8,6 +8,7 @@ class Sources:
 
     CATALOG_URLS = (
         'https://earth-search.aws.element84.com/v1',
+        'https://planetarycomputer.microsoft.com/api/stac/v1'
     ) 
 
     TYPE_REGEX = 'image\/tiff|image\/jp2'
