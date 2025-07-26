@@ -18,8 +18,9 @@ class Extractor:
     """
 
     def __init__(
-            self, 
-            source_name: str, 
+            self,
+            catalog: str,
+            collection: str, 
             aoi: gpd.GeoDataFrame | gpd.GeoSeries, 
             start_date: datetime.date, 
             end_date: datetime.date, 
@@ -29,7 +30,8 @@ class Extractor:
             n_threads: int = 1, 
             assets:  list[str] | None = None
         ):
-        self.source_name = source_name
+        self.catalog = catalog
+        self.collection = collection
         self.aoi = aoi
         self.start_date = start_date
         self.end_date = end_date
@@ -79,7 +81,7 @@ class Extractor:
     def _get_source_config(self):
         if self._sources is None:
             self._set_sources()
-        return self._sources.configs[self.source_name]
+        return self._sources.configs[self.catalog][self.collection]
     
     def _set_sources(self):
         self._sources = Sources()

@@ -30,31 +30,31 @@ RUN apt-get install liblcms2-dev libtiff-dev libpng-dev libz-dev -y && \
 
 # Build and install PROJ
 RUN apt-get install libsqlite3-dev sqlite3 libtiff-dev libcurl4-openssl-dev -y && \
-    wget https://download.osgeo.org/proj/proj-9.3.0.tar.gz && \
-    tar xvf proj-9.3.0.tar.gz && \
-    cd proj-9.3.0 && \
+    wget https://download.osgeo.org/proj/proj-9.6.0.tar.gz && \
+    tar xvf proj-9.6.0.tar.gz && \
+    cd proj-9.6.0 && \
     mkdir build && \
     cd build && \
     cmake .. && \
     cmake --build . && \
     cmake --build . --target install && \
     cd /software && \
-    rm proj-9.3.0.tar.gz && \
-    rm -r proj-9.3.0
+    rm proj-9.6.0.tar.gz && \
+    rm -r proj-9.6.0
 
 # Build and install GEOS
 RUN apt-get install bzip2 -y && \
-    wget https://download.osgeo.org/geos/geos-3.12.0.tar.bz2 && \
-    tar xvfj geos-3.12.0.tar.bz2 && \
-    cd geos-3.12.0 && \
+    wget https://download.osgeo.org/geos/geos-3.13.1.tar.bz2 && \
+    tar xvfj geos-3.13.1.tar.bz2 && \
+    cd geos-3.13.1 && \
     mkdir build && \
     cd build  && \
     cmake .. && \
     make && \
     make install && \
     cd /software && \
-    rm geos-3.12.0.tar.bz2 && \
-    rm -r geos-3.12.0
+    rm geos-3.13.1.tar.bz2 && \
+    rm -r geos-3.13.1
 
 # Build and install GDAL
 RUN wget https://github.com/OSGeo/gdal/releases/download/v3.11.0/gdal-3.11.0.tar.gz && \

@@ -9,7 +9,7 @@ import stacext
 
 parser = argparse.ArgumentParser(
     prog='stac_extract.py',
-    description='Extracts sateillite imagery for an area or interest from a specific source.'
+    description='Extracts satellite imagery for an area or interest from a specific STAC catalog and collection.'
 )
 
 parser.add_argument('--aoi', type=str, required=True,
@@ -19,9 +19,15 @@ parser.add_argument('--aoi', type=str, required=True,
     '''
 )
 
-parser.add_argument('--source', type=str, required=True,
+parser.add_argument('--catalog', type=str, required=True,
     help='''
-        The name of the source where imagery will be extracted.
+        The catalog url from which imagery will be extracted.
+    '''
+)
+
+parser.add_argument('--collection', type=str, required=True,
+    help='''
+        The collection from which imagery will be extracted.
     '''
 )
 
@@ -47,13 +53,13 @@ parser.add_argument('--resample_method', type=str, required=False, default='bili
 
 parser.add_argument('--start_date', type=str, required=True,
     help='''
-        The start date used to search for imagery in ISO 8601 format (i.e., 2023-09-18).
+        The start date used to search for imagery in ISO 8601 format (ex., 2023-09-18).
     '''
 )
 
 parser.add_argument('--end_date', type=str, required=True,
     help='''
-        The end date used to search for imagery in ISO 8601 format (i.e., 2023-09-18).
+        The end date used to search for imagery in ISO 8601 format (ex., 2023-09-18).
     '''
 )
 
